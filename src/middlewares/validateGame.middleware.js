@@ -1,5 +1,13 @@
-import gamesSchema from "../schemas/games.schema.js";
 import connection from "../database/db.js";
+import Joi from "joi";
+
+const gamesSchema = Joi.object({
+    name: Joi.string().required(),
+    image: Joi.string().uri().required(),
+    stockTotal: Joi.number().required().min(1),
+    categoryId: Joi.number().required(),
+    pricePerDay: Joi.number().required().min(1)
+});
 
 export async function validateGame(req, res, next) {
     try {

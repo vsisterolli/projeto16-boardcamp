@@ -1,5 +1,9 @@
-import categoriesSchema from "../schemas/categories.schema.js";
 import connection from "../database/db.js";
+import Joi from "joi";
+
+const categoriesSchema = Joi.object({
+    "name": Joi.string().required()
+});
 
 export async function validateCategory(req, res, next) {
     try {
@@ -11,7 +15,7 @@ export async function validateCategory(req, res, next) {
 
         const previous = await connection.query("SELECT * FROM categories WHERE name=$1;", [name]);
         if(previous.rows.length)
-            return res.status(409).send("Categoria já existente");;
+            return res.status(409).send("Categoria já existente");
 
         next();
     }

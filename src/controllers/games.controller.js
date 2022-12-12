@@ -1,5 +1,4 @@
 import connection from "../database/db.js"
-import gamesSchema from "../schemas/games.schema.js";
 
 export async function listGames(req, res) {
     try {
@@ -7,7 +6,7 @@ export async function listGames(req, res) {
         res.send(games.rows);
     }
     catch(e) {
-        res.status(500).send(e);
+        res.status(500).send(e.message);
     }
 }
 
@@ -19,7 +18,7 @@ export async function insertGame(req, res) {
         res.status(201).send();
     }
     catch(e) {
-        res.status(500).send(e);
+        res.status(500).send(e.message);
     }
 
 }

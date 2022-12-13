@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import connection from "../database/db.js"
 
 export async function listCustomers(req, res) {
@@ -24,7 +25,8 @@ export async function getCustomerById(req, res) {
 
 export async function insertCustomer(req, res) {
     try {
-        const { name, phone, cpf, birthday } = req.body;
+        const { name, phone, cpf } = req.body;
+        let birthday = dayjs(req.body.birthday).format("YYYY-MM-DD");
         connection.query("INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4)",
                         [name, phone, cpf, birthday]);
         res.sendStatus(201);

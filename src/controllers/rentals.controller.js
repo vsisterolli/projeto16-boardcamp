@@ -82,8 +82,7 @@ export async function deleteRent(req, res) {
             return res.status(400).send("O aluguel ainda não foi finalizado");
         
         connection.query("DELETE FROM rentals WHERE id=$1", [id])
-        res.sendStatus(200)
-
+        res.sendStatus(200);
     }
     catch(e) {
         res.status(500).send(e.message);

@@ -2,7 +2,8 @@ import connection from "../database/db.js"
 
 export async function listGames(req, res) {
     try {
-        const games = await connection.query("SELECT * FROM games");
+        const offset = req.query.offset || 0;
+        const games = await connection.query("SELECT * FROM games OFFSET $1", [offset]);
         res.send(games.rows);
     }
     catch(e) {

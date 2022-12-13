@@ -2,7 +2,9 @@ import connection from "../database/db.js"
 
 export async function listCategories(req, res) {
     try {
-        const categories = await connection.query("SELECT * FROM categories");
+        const offset = req.query.offset || 0;
+        console.log(offset)
+        const categories = await connection.query("SELECT * FROM categories OFFSET $1", [offset]);
         res.send(categories.rows);
     }
     catch(e) {
